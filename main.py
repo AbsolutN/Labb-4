@@ -1,3 +1,5 @@
+""" Uppgift 1 """
+
 from bintreeFile import Bintree
 
 svenska = Bintree()
@@ -14,6 +16,8 @@ with open("word3.txt", "r", encoding="utf-8") as svenskfil:
         else:
             svenska.put(ordet)             # in i sökträdet
 print("\n")
+
+
 
 gamla = Bintree()
 

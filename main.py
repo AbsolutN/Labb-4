@@ -1,7 +1,12 @@
 from bintreeFile import Bintree
 
 svenska = Bintree()
+
 with open("word3.txt", "r", encoding="utf-8") as svenskfil:
+    
+    startord = input("Välj ett startord")
+    slutord = input("Välj ett slutord")
+    
     for rad in svenskfil:
         ordet = rad.strip()                # Ett trebokstavsord per rad
         if ordet in svenska:

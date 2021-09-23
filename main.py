@@ -1,23 +1,20 @@
 """ Uppgift 1 """
 
 from bintreeFile import Bintree
-from LinkedQ import LinkedQ
+from LinkedQ import LinkedQ 
 
-svenska = Bintree()
 
-with open("word3.txt", "r", encoding="utf-8") as ordlista:
-    
-    startord = input("Välj ett startord")
-    slutord = input("Välj ett slutord")
-    
-    for rad in ordlista :
-        ordet = rad.strip()                # Ett trebokstavsord per rad
-        if ordet in svenska:
-            print(ordet, end=" ")
-        else:
-            svenska.put(ordet)             # in i sökträdet
-     makechildren(startord)
-print("\n")
+def main():
+    startord = input("Välj ett startord"+ "\n")
+    slutord = input("Välj ett slutord"+ "\n")
+
+    svenska = Bintree()
+
+    with open("word3.txt", "r", encoding="utf-8") as ordlista:
+      for rad in ordlista :
+          ordet = rad.strip()            # Ett trebokstavsord per rad
+          svenska.put(ordet)             # in i sökträdet
+    makechildren(startord)
 
 def makechildren(startord):
     # makechildren ska systematiskt gå igenom alla sätt att byta ut en bokstav i startordet (aöt, böt, ..., söö), kolla att det nya ordet finns i
@@ -26,39 +23,23 @@ def makechildren(startord):
     children = []
     alfabetet = "abcdefghijklmnopqrstuvwxyzåäö"
     barn = ""
+
     for bokstav in startord:
-        while bokstav != (lfabet.find(bokstav)-1)
-            index = (alfabet.find(bokstav)+1) % 29
-            barn = barn + startord.replace(bokstav,alfabet[index])
-            return barn
-        children = children.append(barn)
+      pre_bokstavsindex = int(alfabetet.find(bokstav)-1)
+      peri_bokstavsindex = int(alfabetet.find(bokstav))
+      while peri_bokstavsindex != pre_bokstavsindex:
+          index = (alfabetet.find(bokstav)+1) % 29
+          barn = barn + startord.replace(bokstav,alfabetet[index])
+          return barn
+      children = children.append(barn)
     return children
 
 
-class Node(object):        
-    def __init__(self, stamfar, currency=1, parent=None):
+class Node():        
+   def __init__(self, stamfar):
         # problemträdsobjekt
-        self.amount = amount          # belopp
-        self.currency = currency      # valuta, SEK, USD,...
+        self.stamfar = startord       
         self.parent = None            # förälderpekare
-
-def makechildren(node):
-   # Skapar barn och lägger dom i kön
-
-
-#Inläsning av växlingskurserna 
-q = LinkedQ()
-urmoder = Node() 
-q.enqueue(urmoder)
-try:
-    while not q.isEmpty():
-        node = q.dequeue()
-        makechildren(node)
-        # I makechildren görs "raise Klar(kedja)"
-    print("Ingen lönsam växling")
-except Klar as k: 
-    print("Växla fort:", k)
-
 
 
 # if det finns en väg en väg till ordet: 
@@ -70,14 +51,13 @@ except Klar as k:
 
 
 
+# gamla = Bintree()
 
-gamla = Bintree()
-
-with open("dumbarn.txt", "w", encoding="utf-8") as dumbarnsfil:
-    for rad in dumbarnsfil:
-        rad_list = rad.split(" ")
-        for ordet in rad_list:
-            if ordet not in gamla:
-                gamla.put(ordet)
-                if ordet in svenska:
-                    print(ordet, end=" ")
+# with open("dumbarn.txt", "w", encoding="utf-8") as dumbarnsfil:
+#     for rad in dumbarnsfil:
+#         rad_list = rad.split(" ")
+#         for ordet in rad_list:
+#             if ordet not in gamla:
+#                 gamla.put(ordet)
+#                 if ordet in svenska:
+#                     print(ordet, end=" ")

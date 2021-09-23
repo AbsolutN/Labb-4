@@ -1,7 +1,16 @@
-""" Uppgift 1 """
-
 from bintreeFile import Bintree
 from LinkedQ import LinkedQ 
+
+def makechildren(startord):  
+    children = []
+    alfabetet = "abcdefghijklmnopqrstuvwxyzåäö"
+    barn = ""
+
+    for bokstav1 in startord:
+      for bokstav2 in alfabetet:
+        barn = startord.replace(bokstav1,bokstav2)
+        children.append(barn)
+    return children
 
 
 def main():
@@ -11,53 +20,24 @@ def main():
     svenska = Bintree()
 
     with open("word3.txt", "r", encoding="utf-8") as ordlista:
-      for rad in ordlista :
-          ordet = rad.strip()            # Ett trebokstavsord per rad
-          svenska.put(ordet)             # in i sökträdet
-    makechildren(startord)
+      for rad in ordlista:
+          svenska.put(rad.strip())             # in i sökträdet
 
-def makechildren(startord):
-    # makechildren ska systematiskt gå igenom alla sätt att byta ut en bokstav i startordet (aöt, böt, ..., söö), kolla att det nya ordet finns i
-    # ordlistan men inte finns i gamla och i så fall skriva ut det nya ordet på skärmen och lägga in det i gamla.
+    #svenska.write()
     
-    children = []
-    alfabetet = "abcdefghijklmnopqrstuvwxyzåäö"
-    barn = ""
+    children = makechildren(startord)
+    gamla = Bintree()
+    for child in children:
+      if child in svenska:
+        if child not in gamla:
+          gamla.put(child)
+   # gamla.write()
 
-    for bokstav in startord:
-      pre_bokstavsindex = int(alfabetet.find(bokstav)-1)
-      peri_bokstavsindex = int(alfabetet.find(bokstav))
-      while peri_bokstavsindex != pre_bokstavsindex:
-          index = (alfabetet.find(bokstav)+1) % 29
-          barn = barn + startord.replace(bokstav,alfabetet[index])
-          return barn
-      children = children.append(barn)
-    return children
+    q = LinkedQ()
+    while not q.isEmpty():
+      nod = q.dequeue()
+    makechildren(nod, q)
 
+  
+main()
 
-class Node():        
-   def __init__(self, stamfar):
-        # problemträdsobjekt
-        self.stamfar = startord       
-        self.parent = None            # förälderpekare
-
-
-# if det finns en väg en väg till ordet: 
-#    print("Det finns en väg till ordet")
-# else:
-#    print ("Det finns inte en väg till ordet")
-
-
-
-
-
-# gamla = Bintree()
-
-# with open("dumbarn.txt", "w", encoding="utf-8") as dumbarnsfil:
-#     for rad in dumbarnsfil:
-#         rad_list = rad.split(" ")
-#         for ordet in rad_list:
-#             if ordet not in gamla:
-#                 gamla.put(ordet)
-#                 if ordet in svenska:
-#                     print(ordet, end=" ")
